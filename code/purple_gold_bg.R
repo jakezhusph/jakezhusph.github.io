@@ -34,7 +34,7 @@ g <- make_gradient(
 )
 
 
-png(file="/Users/jiaqiangzhu/Documents/Github/jakezhusph.github.io/images/purple_gold_gradient.png",width=1600,height=2560)
+png(file="/Users/jiaqiangzhu/Documents/Github/jakezhusph.github.io/images/purple_gold_gradient.png",width=2560,height=2560)
 ggplot() +
   annotation_custom(
     grob = g, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
