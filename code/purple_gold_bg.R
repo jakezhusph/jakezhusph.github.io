@@ -30,7 +30,8 @@ make_gradient <- function(deg = 45, n = 100, cols = blues9) {
 
 
 g <- make_gradient(
-  deg = 0, n = 500, cols = c("#552583","#FDB927","#552583")
+  # deg = 0, n = 500, cols = c("#552583","#FDB927","#552583","#FDB927","#552583","#FDB927","#552583")
+  deg = 0, n = 500, cols = c("#FDB927","#552583","#FDB927","#552583","#FDB927")
 )
 
 
@@ -40,3 +41,8 @@ ggplot() +
     grob = g, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
   ) 
   dev.off()
+
+
+
+
+
