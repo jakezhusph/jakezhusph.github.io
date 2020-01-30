@@ -30,12 +30,12 @@ make_gradient <- function(deg = 45, n = 100, cols = blues9) {
 
 
 g <- make_gradient(
-  # deg = 0, n = 500, cols = c("#552583","#FDB927","#552583","#FDB927","#552583","#FDB927","#552583")
-  deg = 0, n = 500, cols = c("#FDB927","#552583","#FDB927","#552583","#FDB927")
+  deg = 0, n = 500, cols = c("#552583","#FDB927")
+  # deg = 0, n = 500, cols = c("#FDB927","#552583","#FDB927","#552583","#FDB927")
 )
 
 
-png(file="/Users/jiaqiangzhu/Documents/Github/jakezhusph.github.io/images/purple_gold_gradient.png",width=2560,height=2560)
+png(file="/Users/jiaqiangzhu/Documents/Github/jakezhusph.github.io/images/purple_gold_gradient.png",width=2160,height=3840)
 ggplot() +
   annotation_custom(
     grob = g, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
