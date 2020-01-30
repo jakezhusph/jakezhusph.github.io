@@ -2606,6 +2606,30 @@ input, select, textarea {
 				width: 100%;
 			}
 
+		/* add leftfit, and rightfit to adjust the image position, 01/29/2020, JQ */
+
+		.image.leftfit, .image.rightfit {
+			max-width: 20%;
+		}	
+			.image.leftfit img, .image.rightfit img {
+				width: 60%;
+			}
+
+		.image.leftfit {
+			float: left;
+			margin: 0 -2rem 2rem 0;
+			top: 0.75rem;
+		}
+
+
+		.image.rightfit {
+			float: right;
+			margin: 0 0 2rem 2rem;
+			top: 0.75rem;
+		}
+
+
+
 		.image.left {
 			float: left;
 			margin: 0 2rem 2rem 0;
