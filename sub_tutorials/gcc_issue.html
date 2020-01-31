@@ -24,7 +24,7 @@
 				<nav id="nav">
 					<ul class="links">
 						<li><a href="../tutorials.html">Back to Tutorials</a></li>
-						<li class="active"><a href="fopenmp.html">fopenmp</a></li>
+						<li class="active"><a href="gcc_issue.html">gcc warning</a></li>
 					</ul>
 					<ul class="icons">
 						<li><a href="https://twitter.com/ZhuJiaqiang" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
@@ -39,30 +39,19 @@
 						<!-- Post -->
 							<section class="post">
 								<header class="major">
-                                    <h3>fopenmp option of clang error</h3>
-                                    <h5>Jiaqiang Zhu, 01/27/2020</h5>
+                                    <h3>gcc warning</h3>
+                                    <h5>Jiaqiang Zhu, 0130/2020</h5>
 								</header>
                                 <!-- <div class="image main"><img src="images/pic01.jpg" alt="" /></div> -->
-								<p> When I try to install R package <a href="../SPARK.html">SPARK</a> on my mac laptop, I got the following error under macOS: <br/>
-									<code>clang: error: unsupported option '-fopenmp'</code> <br/>
-								With Google, I found two posts (links listed at the end) and solved the problems. <br/>
+								<p> When I try to use sourceCpp, it gives warning  <br/>
+								<pre><code>ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0</code></pre>
+								With Google, I found R compiler tools for Rcpp on macOS<a href="https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/"> (link)</a> and solved the problems. <br/>
 								This is just a note for future use:
 								<div class="col-6 col-12-small">
-									<ol><li>Installed <code>xcode</code> from Apple Store </li>
-										<li>Installed <code>llvm </code>: <code>brew install llvm</code></li>
-										<li>Downloaded and installed the <a href="https://gcc.gnu.org/wiki/GFortranBinaries#MacOS">gfortran</a> binary installer. Note: You will need to download the OS X El Capitan gfortran 6.1 binaries regardless of whether or not you are on macOS Sierra, which presently only offers gfortran 6.3.
-										</li>
-										<li>Downloaded and extracted clang as follows in terminal: 
-										<pre><code>curl -OL http://r.research.att.com/libs/clang-4.0.0-darwin15.6-Release.tar.gz 
-tar fvxz clang-4.0.0-darwin15.6-Release.tar.gz -C /</code></pre>
-										<li> Reset the Makevars file in terminal: </li>
-										<pre><code>cat <<- EOF > ~/.R/Makevars
-# The following statements are required to use the clang4 binary
-CC=/usr/local/clang4/bin/clang 
-CXX=/usr/local/clang4/bin/clang++
-LDFLAGS=-L/usr/local/clang4/lib
-# End clang4 inclusion statements
-EOF</code></pre>
+									<ol><li>removing old installation files as instructed:</li>
+										<p><span class="image fit"><img src="../images/r_compiler1.png" alt="" /></span>
+										<li>Follow automatic installation <a href="https://github.com/rmacoslib/r-macos-rtools/releases"> (link)</a>, and choose "R 3.6.z: More robust headless Xcode CLI Installation Support on Catalina" </li>
+										<li>Quick check with the helloworld.cpp</li>		
 									</ol>
 								</div>
 
@@ -71,11 +60,10 @@ EOF</code></pre>
 
                                     <ul class="actions small">
                                         <!-- <li><a href="https://academic.oup.com/bioinformatics/article/35/3/487/5055584" class="button primary small">Reference Links</a></li> -->
-                                        <li><a href="https://thecoatlessprofessor.com/programming/cpp/openmp-in-r-on-os-x/" class="button small">Reference Link 1</a></li>
-                                        <li><a href="https://daijiang.name/en/2017/06/21/fopenmp-option-of-clang-error/" class="button small">Reference Link 2</a></li>
+                                        <li><a href="https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/" class="button small">Reference Link 1</a></li>
 									</ul>
 
-								<header><h2>May got some warning when sourceCpp </h2></header>
+								<header><h2>No more following warnings:</h2></header>
 								<pre><code>ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0</code></pre>
 
 							</section>
