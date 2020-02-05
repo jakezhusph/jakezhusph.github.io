@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Jiaqiang's HomePage</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">Welcome to My Showcase</a>
+					</header>
+				<!-- Nav -->
+				<nav id="nav">
+					<ul class="links">
+						<li><a href="../tutorials.html">Back to Tutorials</a></li>
+						<li class="active"><a href="combine_plots.html">Combine Plots with GGarrange</a></li>
+					</ul>
+					<ul class="icons">
+						<li><a href="https://twitter.com/ZhuJiaqiang" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.linkedin.com/in/jiaqiang-zhu-65278945/" class="icon brands fa-linkedin"><span class="label">Instagram</span></a></li>
+						<li><a href="https://github.com/jakezhusph" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+				</nav>
+
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+                                    <h3>Combine Plots with GGarrange</h3>
+                                    <h5>Jiaqiang Zhu, 02/05/2020</h5>
+								</header>
+                                <!-- <div class="image main"><img src="images/pic01.jpg" alt="" /></div> -->
+								<p> Executable code from the <a href="https://www.datanovia.com/en/lessons/combine-multiple-ggplots-into-a-figure/">website</a> :
+
+<pre><code>rm(list=ls())
+library(ggplot2)
+library(ggpubr)
+
+data("ToothGrowth")
+
+my3cols <- c("#E7B800", "#2E9FDF", "#FC4E07")
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+
+# 1. Create a box plot (bp)
+p <- ggplot(ToothGrowth, aes(x = dose, y = len))
+bxp <- p + geom_boxplot(aes(color = dose)) +
+	scale_color_manual(values = my3cols)
+
+# 2. Create a dot plot (dp)
+dp <- p + geom_dotplot(aes(color = dose, fill = dose), 
+						binaxis='y', stackdir='center') +
+	scale_color_manual(values = my3cols) + 
+	scale_fill_manual(values = my3cols)
+
+# 3. Create a line plot
+lp <- ggplot(economics, aes(x = date, y = psavert)) + 
+	geom_line(color = "#E46726") 
+
+library(ggpubr)
+figure <- ggarrange(bxp, dp, lp,
+				labels = c("A", "B", "C"),
+				ncol = 2, nrow = 2)
+figure</code></pre>
+								</p>
+								<ul class="actions small">
+									<!-- <li><a href="https://academic.oup.com/bioinformatics/article/35/3/487/5055584" class="button primary small">Reference Links</a></li> -->
+									<li><a href="https://www.datanovia.com/en/lessons/combine-multiple-ggplots-into-a-figure/" class="button small">Reference Link 1</a></li>
+									<li><a href="http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/" class="button small">Reference Link 2</a></li>
+								</ul>
+								
+
+								<p> Example code (but data is not available here) :
+
+<pre><code>rm(list=ls())
+impr = 2
+ispr = 2
+icut = 0.5
+
+path = "/net/mulan/disk2/jiaqiang/HMM/Manuscript/v1/simulation/result/lrt/"
+load(paste0(path,"/sim_pbca_high_pdiff_mpr",impr,"_spr",ispr,"_cutd",icut,"_lrt_HDMR.rds"))
+
+all_lrt_null <- all_lrt
+rm(all_lrt)
+pvals_null <- sapply(all_lrt_null,function(x)1-pchisq(x,df=6))
+
+source("/net/fantasia/home/jiaqiang/mulan_temp/common_function/simple_plot.R")
+plt_list <- list()
+for(icol in 1:4){
+	plt_list[[icol]] <- pvals_null[,icol]
+}
+
+names(plt_list) <- paste0("pdiff",c(0.1,0.2,0.3,0.4))
+source("/net/fantasia/home/jiaqiang/mulan_temp/common_function/simple_gg_general.R")
+## qq plot code is on the other pages
+qq_fig <- qplot_gg(pvalues=plt_list,legend.position="none",pt.size=2,
+				ax.txt.size=20,ax.title.size=20) 
+
+load(paste0(path,"/sim_pbca_high_pdiff_mpr",impr,"_spr",ispr,"_cutd",icut,"_lrt_alterant_HDMR.rds"))
+pvals 	<- sapply(all_lrt,function(x)1-pchisq(x,df=6))
+tmp_func <- function(x,cutoff=0.05){
+	sum(x< cutoff)
+}
+
+plt_dat_alter <- cbind.data.frame(pdiff=rep(c(0.1,0.2,0.3,0.4),each=5),
+						alpha=rep(c(0.1,0.3,0.5,1,2),4),
+						value=apply(pvals,2,tmp_func)/100)
+
+ax.txt.size = 20
+ax.title.size = 20
+len.title.size=1.5
+len.txt.size=1.4
+legend.position= "top"
+
+library(ggplot2)
+g2 <- ggplot(data = plt_dat_alter,aes(x=as.character(alpha),y=value,fill=as.character(pdiff))) + 
+		geom_bar(stat="identity",position=position_dodge())+
+		scale_x_discrete("Annotation Effect Size") +
+		scale_y_continuous("Power \n") +
+		scale_fill_manual(values=c("hotpink","mediumorchid2","#F4A582","#B8E186"),
+						name="Absolute Methylation Difference", 
+						guide = guide_legend(direction = "horizontal",
+						title.position = "top",title.hjust=0.5))+
+		theme_bw()+
+		theme(axis.text.x = element_text(size=ax.txt.size),
+			axis.text.y=element_text(size=ax.txt.size),
+			axis.title.y = element_text(size=ax.title.size), 
+			axis.title.x = element_text(size=ax.title.size),
+			## margin here is for the space between the legends
+			legend.text= element_text(size=rel(len.txt.size),
+							margin = margin(r = 10, unit = "pt")), 
+			legend.title = element_text(size=rel(len.title.size)),
+			panel.border = element_blank(), 
+			panel.grid.major = element_blank(),
+			panel.grid.minor = element_blank(), 
+			axis.line = element_line(colour = "black"),
+			legend.position=legend.position) 
+
+
+# col.base <- c("hotpink","mediumorchid2","#F4A582","#B8E186","#8dd3c7","wheat")
+# library(gridExtra)
+# grid.arrange(qq_fig, g2, ncol=2)
+
+library(ggpubr)
+combined_plot <- ggarrange(qq_fig,g2+rremove("legend"),ncol=2,labels=c("A","B"),
+			font.label=list(size=25),widths=c(1,1),hjust=-0.5,vjust=1.2)
+</code></pre>
+				</p>
+
+							</section>
+					</div>
+
+					
+
+				<!-- Footer -->
+				<!-- <footer id="footer">
+					<section class="split contact">
+						<section class="alt">
+							<h3>Contact</h3>
+							<p><a href="#">Jakezhusph@gmail.com</a></p>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://twitter.com/ZhuJiaqiang" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="https://www.linkedin.com/in/jiaqiang-zhu-65278945/" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+								<li><a href="https://github.com/jakezhusph" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</section>
+				</footer> -->
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; 2019 Jiaqiang Zhu</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
