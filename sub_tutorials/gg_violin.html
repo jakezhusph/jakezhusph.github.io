@@ -24,7 +24,7 @@
 				<nav id="nav">
 					<ul class="links">
 						<li><a href="../tutorials.html">Back to Tutorials</a></li>
-						<li class="active"><a href="extract_legend.html">Extract Legend from ggplot</a></li>
+						<li class="active"><a href="gg_violin.html">violin plot with ggplot2</a></li>
 					</ul>
 					<ul class="icons">
 						<li><a href="https://twitter.com/ZhuJiaqiang" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
@@ -39,27 +39,21 @@
 						<!-- Post -->
 							<section class="post">
 								<header class="major">
-                                    <h3>Extract Legend from ggplot</h3>
-                                    <h5>Jiaqiang Zhu, 02/05/2020</h5>
+                                    <h3>QQ plot with ggplot2</h3>
+                                    <h5>Jiaqiang Zhu, 02/18/2020</h5>
 								</header>
                                 <!-- <div class="image main"><img src="images/pic01.jpg" alt="" /></div> -->
-								<p> R code for extracting Legend from ggplot:
+								<p> R code for violin plot with points using ggplot2:
 				
 										<pre><code>library(ggplot2)
-g_legend <- function(a.gplot){ 
-tmp <- ggplot_gtable(ggplot_build(a.gplot)) 
-leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box") 
-legend <- tmp$grobs[[leg]] 
-return(legend)} 
-
-## draw the plot
-library(grid)
-grid.newpage()
-grid.draw(g_legend(g2)) 
-
-## can save with ggsave
-g3 <- g_legend(g2)
-											  
+set.seed(1)
+b <- rpois(1000,lambda=2)
+pltdat <- data.frame(count=b)
+ggplot(pltdat, aes(y = count,x="count",fill=hue_pal()(1))) +
+	geom_violin() +   
+	geom_jitter(height=0,size=1) +
+	theme_bw()+
+	theme(legend.position="none") 
 </code></pre>
 									</ol>
 								</div>
