@@ -24,7 +24,7 @@
 				<nav id="nav">
 					<ul class="links">
 						<li><a href="../tutorials.html">Back to Tutorials</a></li>
-						<li class="active"><a href="bash_example.html">Bash Example</a></li>
+						<li class="active"><a href="python_slurm.html">Python Slurm Jobs</a></li>
 					</ul>
 					<ul class="icons">
 						<li><a href="https://twitter.com/ZhuJiaqiang" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
@@ -39,18 +39,96 @@
 						<!-- Post -->
 							<section class="post">
 								<header class="major">
-                                    <h3>Bash Code for Reference</h3>
-                                    <h5>Jiaqiang Zhu, 02/12/2020</h5>
+                                    <h3>Python Slurm Jobs for Reference</h3>
+                                    <h5>Jiaqiang Zhu, 03/12/2020</h5>
 								</header>
                                 <!-- <div class="image main"><img src="images/pic01.jpg" alt="" /></div> -->
-								<p> Fast code to rename a bunch of files in bash :
+								<p> Install SpatialDE on python3
 
-<pre><code>cd /net/mulan/disk2/jiaqiang/HMM/Manuscript/v1/simulation/output/annotation/regioneR/pdiff_hmm/pdiff0.4
-for ((isid=1; isid<=100; isid++)); do
-for ialpha in 0.1 0.2 0.3 0.4 0.5 1;do
-	mv "true_pbca_sim_high_pdiff0.4_alpha${ialpha}_cutd0.5_sid${isid}_alterant_pdiff_hmm.rds" "sim_pbca_regioneR_high_pdiff0.4_alpha${ialpha}_cutd0.5_sid${isid}_alterant_pdiff_hmm.rds"; 
+<pre><code>python3 -m pip install pathlib
+python3 -m pip install spatialde
+</code></pre>
+
+Bash code (spe.sh)
+<pre><code>#!/bin/bash
+
+#SBATCH --time=72:00:00
+#SBATCH --job-name=spe
+#SBATCH --mem=10000
+
+#SBATCH --array=1-10
+#SBATCH --output=/net/fantasia/home/jiaqiang/temp/python_test/out/spe%a.out
+#SBATCH --error=/net/fantasia/home/jiaqiang/temp/python_test/err/spe%a.err
+#SBATCH --chdir=/net/fantasia/home/jiaqiang/temp/python_test/
+#SBATCH --partition=mulan
+
+bash
+
+let k=0
+
+for sigZero in 200; do	
+for numeZero in 2000; do
+for iblock in 25; do
+for ((isid=1; isid<=10; isid++)); do
+	let k=${k}+1
+	if [ ${k} -eq ${SLURM_ARRAY_TASK_ID} ]; then
+	python3 ./spe.py ${sigZero} ${numeZero} ${iblock} ${isid} 
+	fi	
 done
 done
+done
+done
+</code></pre>
+
+
+Python code (spe.py)
+<pre><code>import numpy as np
+import pandas as pd
+import NaiveDE
+import SpatialDE
+import json
+import sys
+
+sigZero = sys.argv[1]
+numZero = sys.argv[2]
+iblock = sys.argv[3]
+irpt = sys.argv[4]
+
+def paste0(string1, range1):
+	texts = [string1 + str(num1) for num1 in range1]
+	return texts
+
+npzpath = "/net/mulan/disk2/jiaqiang/kdc/experiment/simulation/v4/data/npz/"
+# outpath = "/net/mulan/disk2/jiaqiang/kdc/experiment/simulation/v4/output/spatialde/"
+outpath = "/net/fantasia/home/jiaqiang/temp/python_test/output/"
+
+# sigZero = 200
+# numZero = 2000
+# iblock = 25
+# irpt = 2
+ilayer = "E"
+
+compressed_data = np.load(npzpath+'/sim_data_CN24_E1_'+str(iblock)+'X_'+str(ilayer)+'_zero'+str(numZero)+'_sigzero'+str(sigZero)+'_rpt'+str(irpt)+'.npz',encoding="latin1",allow_pickle=True)
+dat2 = compressed_data['info']
+dat3 = compressed_data['sp_sim_count']
+info = pd.DataFrame(dat2)
+info.index = paste0("C",range(1,1+info.shape[0]))
+info.columns = ["x","y"]
+count = pd.DataFrame(dat3.all().toarray())
+count.index = paste0("gene",range(1,1+count.shape[0]))
+count.columns = paste0("C",range(1,1+info.shape[0]))
+df = count.T  
+df = df.T[df.sum(0) >= 3].T  
+sample_info = info
+sample_info['total_counts'] = df.sum(1)
+sample_info = sample_info.query('total_counts > 10')  
+df = df.loc[sample_info.index]
+X = sample_info[['x', 'y']]
+dfm = NaiveDE.stabilize(df.T).T
+res = NaiveDE.regress_out(sample_info, dfm.T, 'np.log(total_counts)').T
+res['log_total_count'] = np.log(sample_info['total_counts'])
+results = SpatialDE.run(X, res)
+results.to_csv(outpath+'sim_spe_CN24_E1_'+str(iblock)+'X_'+str(ilayer)+'_zero'+str(numZero)+'_sigzero'+str(sigZero)+'_rpt'+str(irpt)+'.csv',sep=' ', index=False, header=True)
 </code></pre>
 								</p>
 						
