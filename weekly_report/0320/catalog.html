@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>March 20th, Research Log</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../assets/normalize.css" media="screen">
+    <link href="../assets/css.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../assets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../assets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">03/20/2020</h1>
+      <!-- <h2 class="project-tagline">Preliminary Analysis</h2> -->
+      <a href="../0313/catalog.html" class="btn">Previous</a>
+      <a href="../main.html" class="btn">Main Contents</a>
+      <a href="#../0327/catalog.html" class="btn">Next</a>
+    </section>
+
+    <section class="main-content">
+
+<h1><a id="Things done since last meeting" class="anchor" href="#none-link" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Things done since last meeting</h1>
+<h3><a id="Slideseq Clustering" class="anchor" href="Slideseq_Cluster_Visualization.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">Slideseq Cluster Visualization</span></a></h3>
+<h3><a id="Slideseq Enrichment" class="anchor" href="Slideseq_enrichment.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">Slideseq Enrichment</span></a> with  
+  <a id="Slideseq Enrichment GO Details" class="anchor" href="Slideseq_GO_enrichment_detail.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">GO Details</span></a></h3>
+
+<h3><a id="HDST Clustering" class="anchor" href="HDST_Cluster_Visualization.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">HDST Cluster Visualization</span></a></h3>
+<h3><a id="X5 Clustering" class="anchor" href="HDST_5X_Cluster_Visualization.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">HDST 5X Cluster Visualization</span></a></h3>
+<h3><a id="HDST Enrichment" class="anchor" href="HDST_enrichment.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">HDST Enrichment</span></a></h3>
+<h3><a id="X5 Enrichment" class="anchor" href="HDST_5X_enrichment.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">HDST 5X Enrichment</span></a></h3>
+<hr>
+
+
+<h1>
+<a id="Topics to Discuss" class="anchor" href="#none-link" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Topic to Discuss</h1>
+<ol>
+<li><strong>Clustering Pattern: for the slideseq, it seems fine, but for the HDST only one clear layer pattern </strong></li>
+<li><strong>SPARK inconvergence issue </strong></li>
+<ul>
+  <li> 5X and 10X (2000,200) not converged, though at the 10X resolution the power results are good, no power at all at 5X resolution</li>
+  <li> 5X (1000,100) not converged</li>
+  <li> In one slideseq data, it has only 475 (409) out of 17754 genes converged, depending on the total counts filtering cutoff (10 or 9)</li>
+  <li> p-values are not well behaved in sparse case as shown in the slides</li>
+</ul>
+<li><strong>SPARK speed issue: </strong></li>
+<ul>
+  <li> Eigen in Armadillo is as fast as python, R eigen is 2 times slower</li>
+  <li> 5X: sample size (27419) <br>
+    # ** On entry to DSYEVDSafe minimumPrecisionMIA parameter number 8 had an illegal value
+   </li>
+  <li> Similar Problems when apply to Slideseq data</li>
+  <li> Positive definite matrix is necessary for well-behaved pvalues, for cosine kernels, more than half eigenvalues are negative </li>
+  <li> <red>Possible solution: Considering when sample size is greater than 10,000, only consider ten Gaussian kernels</red></li>
+</ul>
+
+<li><strong>Simulation Setting: if current setting, why not just aggregate the data to make not sparse and smaller sample-size,  and then analyze with SPARK </strong></li>
+<!-- <h1>
+<a id="Things need to do in the upcoming week" class="anchor" href="#none-link" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Things need to do in the upcoming week</h1>
+<ol>
+<li><strong>Check different numZero/sigZero ratio to justify the difference between HDST and 5X:</strong></li>
+<ul>
+  <li><red>Difficulty: hard to determine which is numZero and sigZero</red></li>
+  <li>Check Signal Genes in HDST and 5X</li>
+  <li>Genes in HDST: general pattern </li>
+  <li>Top Genes in 5X and not in HDST: general pattern </li>
+  <li>Cluster the signal genes with hclust is impractical, try kmeans </li>
+</ul>
+
+<li><strong>Slideseq choose couple data and perform downstream analysis (GSEA) </strong></li>
+<li><strong>Time Comparison (New SpatialDE is much faster)</strong></li>
+<li><strong>Use all gaussian kernels for SPARK and not checking pd to make tens of thousands sample scalable: will modify the code based on lspark to make evern faster</strong></li> -->
+
+</ol>
+      <footer class="site-footer">
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+</body></html>
