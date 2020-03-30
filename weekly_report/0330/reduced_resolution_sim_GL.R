@@ -1,5 +1,5 @@
 #' ---
-#' title: "QQ Plots: HDST vs. 50X (Layer GL)"
+#' title: "HDST vs. 50X (Layer GL)"
 #' author: "Jiaqiang Zhu"
 #' date: "March 29th, 2020"
 #' ---
@@ -159,7 +159,7 @@ comp_qq     <- qplot_gg(as.vector(p2[101:1000,]),cl=0,legend.position=c(0.15,0.8
 fig4 		<- comp_qq + ggtitle("spark_perm") + theme(plot.title = element_text(hjust = 0.5,size=15))
 
 #' ***
-#' > Figure 1: 50X Resolution QQ Plots, GL
+#' > Figure 1: 50X Resolution QQ Plots of Null Genes, GL
 #+ label=figs,fig.width=12, fig.height=12, echo=F,fig.align="center"
 all_figs <- ggarrange(fig1,fig2,fig3,fig4,
 							ncol=2,nrow=2)
@@ -191,13 +191,20 @@ for(isid in 1:10){
 source("/net/fantasia/home/jiaqiang/mulan_temp/common_function/simple_gg_general.R")
 comp_qq     <- qplot_gg(as.vector(p2[101:1000,]),cl=0,legend.position=c(0.15,0.8),pt.size=2,
                             ax.txt.size=15,ax.title.size=15,len.txt.size=2)
-fig2 		<- comp_qq + ggtitle("KDC") + theme(plot.title = element_text(hjust = 0.5,size=15))
+
+comp_qq_all     <- qplot_gg(as.vector(p2),cl=0,legend.position=c(0.15,0.8),pt.size=2,
+                            ax.txt.size=15,ax.title.size=15,len.txt.size=2)
+
+fig2 		<- comp_qq + ggtitle("KDC_NULL") + theme(plot.title = element_text(hjust = 0.5,size=15))
+fig3 		<- comp_qq_all + ggtitle("KDC_ALL") + theme(plot.title = element_text(hjust = 0.5,size=15))
+
+library(ggpubr)
+pp_list <- ggarrange(fig2,fig3,ncol = 2, nrow = 1)
 
 #' ***
 #' > Figure 2: 1X Resolution QQ Plots, GL
-#+ label=x1qq,fig.width=6, fig.height=6, echo=F,fig.align="center"
-fig2
-
+#+ label=x1qq,fig.width=12, fig.height=6, echo=F,fig.align="center"
+pp_list
 
 
 
