@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>April 17th, Research Log</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../assets/normalize.css" media="screen">
+    <link href="../assets/css.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../assets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../assets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">04/17/2020</h1>
+      <!-- <h2 class="project-tagline">Preliminary Analysis</h2> -->
+      <a href="../0410/catalog.html" class="btn">Previous</a>
+      <a href="../main.html" class="btn">Main Contents</a>
+      <a href="#../0417/catalog.html" class="btn">Next</a>
+    </section>
+
+    <section class="main-content">
+
+<h1><a id="Things done since last meeting" class="anchor" href="#none-link" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Things done since last meeting</h1>
+  
+<!-- <h2><a id="Realdata" class="anchor" href="#none-link" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RealData</h2>
+<hr>
+<h3><a id="qc_hdst" class="anchor" href="HDST_Quality_Control_Fig.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">HDST Data Visualization (Quality Control) </span></a></h3>
+<h3><a id="qc_slideseq" class="anchor" href="Slideseq_Quality_Control_Fig.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">Slideseq Data Visualization (Quality Control)</span></a></h3>
+<h3><a id="kmeans_slideseq" class="anchor" href="Slideseq_cluster_kmeans.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">Slideseq Kmeans</span></a></h3>
+<h3><a id="fdr" class="anchor" href="Pvalue_BH_BY_empirical.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">BY vs. BH vs. Empircal FDR</span></a></h3>
+
+   -->
+<h2><a id="Simulation" class="anchor" href="#none-link" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Simulation</h2>
+<hr>
+<h3><a id="qq_E" class="anchor" href="reduced_resolution_sim_E.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">Simulation QQ Plots -- E layer</span></a></h3>
+<h3><a id="qq_GL" class="anchor" href="reduced_resolution_sim_GL.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">Simulation QQ Plots -- GL layer</span></a></h3>
+<h3><a id="qq_ONL" class="anchor" href="reduced_resolution_sim_ONL.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">Simulation QQ Plots -- ONL layer</span></a></h3>
+<h3><a id="power" class="anchor" href="Power_comparison_based_HDST_sum_binR.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">Power Comparison for Simulation Based on HDST (TotalCount Adjusted)</span></a></h3>
+<h3><a id="spark_lmm" class="anchor" href="SPARK_LMM_Comparison.html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link">SPARK LMM</span></a></h3>
+
+
+
+<h1>
+  <a id="Topics to Discuss" class="anchor" href="#none-link" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Topic to Discuss</h1>
+  <ol>
+    <li><strong>KDC: link to lmm score test, possible to incorporate the regular gaussian kernel, but then, it is just spark-lmm </strong></li>
+    <li><strong>SPARK-LMM</strong></li>
+    <ul><li> RL pvalues are similar to SW pvalues in certain normalization case.</li>
+        <li> But still not well calibrated in all three cases</li>
+        <li> With SW approximation, SPARK-LMM could analyze relatively large scale data</li>
+    </ul>
+    <li><strong>Aggregate Counts</strong></li>
+    <ul><li> The aggregate-sum approach based on the original paper is probably not desired, as in both SPARK and KDC, the p-values are not well calibrated 
+      <a href="KDC_totaladj_sum_aggregate_qq.html"> (KDC QQ comparison)</a>
+    </li>
+        <li> The power for SPARK (lmm) is still high even when the p-values are inflated</li>
+        <li> The power for spatialDE is very high even the p-values are deflated</li>
+        <li> Though the pvalues in KDC is getting better if adjusting for the totalcount, the power of KDC also decreases</li>
+        <ul>
+          <li>At HDST levels simulation, the power of KDC never reach to 1</li>
+          <li>In Slideseq real data, the identified SE genes reduced from 953 to 144 </li>  
+          <li>In HDST real data, the identified SE genes reduced from 92 to 29 </li>
+        </ul>
+    </ul>
+  </ol>
+
+<!--   
+  <h1><a id="Things need to do in the upcoming week" class="anchor" href="#none-link" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Things need to do in the upcoming week</h1>
+  <ol>
+    <li><strong>Adjusting for the totalcount for KDC and LMM SPARK (qn)</strong></li>
+    <li><strong>Improve the speed of RL-SKAT by modify the division to difference (SW approximation)</strong></li>
+  </ol> -->
+      
+      
+
+  <footer class="site-footer">
+    <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+  </footer>
+
+</section>
+</body></html>
