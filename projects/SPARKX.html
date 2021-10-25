@@ -16,15 +16,17 @@
 
 		<!-- Wrapper -->
 			<div id="wrapper">
+
 				<!-- Header -->
 					<header id="header">
 						<!-- <a href="../index.html" class="logo">Welcome to My Showcase</a> -->
 					</header>
+
 				<!-- Nav -->
 				<nav id="nav">
 					<ul class="links">
-						<li><a href="../tutorials.html">Back to Tutorials</a></li>
-						<li class="active"><a href="gg_violin.html">violin plot with ggplot2</a></li>
+						<li><a href="../Research.html">Back to Research</a></li>
+						<li class="active"><a href="SPARKX.html">SPARK-X</a></li>
 					</ul>
 					<ul class="icons">
 						<li><a href="https://twitter.com/ZhuJiaqiang" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
@@ -39,34 +41,28 @@
 						<!-- Post -->
 							<section class="post">
 								<header class="major">
-                                    <h3>Violin plot with ggplot2</h3>
-                                    <h5>Jiaqiang Zhu, 02/18/2020</h5>
-								</header>
-                                <!-- <div class="image main"><img src="images/pic01.jpg" alt="" /></div> -->
-								<p> R code for violin plot with points using ggplot2:
-				
-										<pre><code>library(ggplot2)
-set.seed(1)
-b <- rpois(1000,lambda=2)
-pltdat <- data.frame(count=b)
-ggplot(pltdat, aes(y = count,x="count",fill=hue_pal()(1))) +
-	geom_violin() +   
-	geom_jitter(height=0,size=1) +
-	theme_bw()+
-	theme(legend.position="none") 
-</code></pre>
-									</ol>
-								</div>
-
-								</p>
-	
+									<span class="date">June 21, 2021</span>
+									<h3>SPARK-X: non-parametric modeling enables scalable and robust detection of spatial expression patterns for large spatial transcriptomic studies</h3>
+									<h5>Jiaqiang Zhu,  Shiquan Sun,  Xiang Zhou</h5>									
+								</header>							
+								<!-- <div class="image main"><img src="images/pic01.jpg" alt="" /></div> -->
+								
+								<p> <b>Abstract:</b> Spatial transcriptomic studies are becoming increasingly common and large, posing important statistical and computational challenges for many analytic tasks. 
+                                    Here, we present SPARK-X, a non-parametric method for rapid and effective detection of spatially expressed genes in large spatial transcriptomic studies. 
+                                    SPARK-X not only produces effective type I error control and high power but also brings orders of magnitude computational savings. 
+                                    We apply SPARK-X to analyze three large datasets, one of which is only analyzable by SPARK-X. 
+                                    In these data, SPARK-X identifies many spatially expressed genes including those that are spatially expressed within the same cell type, revealing new biological insights.</p>
+                                    <ul class="actions small">
+                                        <li><a href="https://genomebiology.biomedcentral.com/track/pdf/10.1186/s13059-021-02404-0.pdf" class="button primary small">PDF</a></li>
+                                        <li><a href="https://xzhoulab.github.io/SPARK/01_about/" class="button small">Code</a></li>
+                                    </ul>
 							</section>
 					</div>
 
 					
 
 				<!-- Footer -->
-				<!-- <footer id="footer">
+				<footer id="footer">
 					<section class="split contact">
 						<section class="alt">
 							<h3>Contact</h3>
@@ -81,7 +77,7 @@ ggplot(pltdat, aes(y = count,x="count",fill=hue_pal()(1))) +
 							</ul>
 						</section>
 					</section>
-				</footer> -->
+				</footer>
 
 				<!-- Copyright -->
 					<div id="copyright">

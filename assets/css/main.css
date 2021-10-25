@@ -3541,8 +3541,9 @@ input, select, textarea {
 		-webkit-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
-		height: 20rem;
-		padding-bottom: 8rem;
+		height: 1rem;
+		/* where to change the title height */
+		padding-bottom: 5rem;
 		position: relative;
 		text-align: center;
 		z-index: 2;
